@@ -36,24 +36,18 @@ const WIPS = {
     issueMin: 0,
     issueMax: 3
   },
-  'Ready for Deployment': {
-    issueMin: 0,
-    issueMax: 15
-  },
-  'For Review': {
-    issueMin: 0,
-    issueMax: 15
-  },
-  'Ready for Prod': {
+  'Next Release': {
     issueMin: 0,
     issueMax: 15
   }
 }
 
+const fgRed = '#E35205'
+const bgRed = '#f4d4c8'
+
 // Observe a specific DOM element:
 observeDOM(document.getElementById('app'), function () {
   const columns = [...document.querySelectorAll('.zhc-pipeline')]
-
   if (columns.length) {
     columns
       .map(column => {
@@ -106,11 +100,20 @@ observeDOM(document.getElementById('app'), function () {
           }
 
           if (error) {
-            column._column.style.backgroundColor = '#E35205'
+            column._column.style.backgroundColor = fgRed
           } else {
             column._column.style.backgroundColor = 'transparent'
           }
         }
       })
+    const cards = [...document.querySelectorAll('.zhc-issue-card')]
+    cards.forEach(card => {
+      const labels = [...card.querySelectorAll('.zhc-label')]
+      const isExpedited = labels.some(label => label.textContent === 'EXPEDITED')
+      if (isExpedited) {
+        card.style.backgroundColor = bgRed
+        card.style.borderColor = fgRed
+      }
+    })
   }
 })
