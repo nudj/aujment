@@ -36,7 +36,7 @@ const WIPS = {
     issueMin: 0,
     issueMax: 3
   },
-  'Next Release': {
+  'Release': {
     issueMin: 0,
     issueMax: 15
   }
@@ -83,7 +83,7 @@ observeDOM(document.getElementById('app'), function () {
         return data
       })
       .forEach(column => {
-        const wips = WIPS[column.title]
+        const wips = WIPS[column.title.split(':')[0]]
         let error = false
 
         if (wips) {
